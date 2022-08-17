@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Optional;
-
 @RestController()
 public class UserController {
 
@@ -34,8 +32,8 @@ public class UserController {
 
     @ResponseBody
     @GetMapping(value = "/user/{id}", produces = "application/json")
-    public Optional<Users> getUserById(@PathVariable Long id) {
-        return userRepository.findById(id);
+    public Users getUserById(@PathVariable Long id) {
+        return userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
     }
 
     @ResponseBody
@@ -45,8 +43,17 @@ public class UserController {
     }
 
     @ResponseBody
+    @PostMapping(value = "/user/{id}/password_reset", produces = "application/json")
+    public String updatePassword(@RequestBody String password, @PathVariable Long id) {
+        userServices.updatePassword(id, new JSONObject(password), userRepository);
+        return new JSONObject()
+                .put("message", "Password updated.")
+                .toString();
+    }
+
+    @ResponseBody
     @DeleteMapping(value = "/user/{id}", produces = "application/json")
     public void deleteUser(@PathVariable Long id) {
-        userServices.deleteUser(id, userRepository);
+        userRepository.deleteById(id);
     }
 }

@@ -43,6 +43,16 @@ public class Jwt {
     }
 
     public boolean verifyJwtToken(String JwtToken, HttpServletResponse response) throws IOException {
+        if (JwtToken == null) {
+            JSONObject VALIDATION_FAILED = new JSONObject()
+                    .put("error", "VALIDATION_FAILED")
+                    .put("message", "A token has not been supplied.");
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            response.setStatus(401);
+            response.getWriter().write(VALIDATION_FAILED.toString());
+            return false;
+        }
         try {
             Jwts.parserBuilder()
                     .setSigningKey(hmacKey)
