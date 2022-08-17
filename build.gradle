@@ -1,0 +1,65 @@
+plugins {
+	id 'org.springframework.boot' version '2.7.2'
+	id 'io.spring.dependency-management' version '1.0.12.RELEASE'
+	id 'java'
+}
+
+group = 'hico.group.assesment'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	////////////////////////////////////////////////////////////////////////////////
+	// https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-ui      //
+	//                                OpenApi                                     //
+	////////////////////////////////////////////////////////////////////////////////
+	implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.6.9'
+
+	////////////////////////////////////////////////////////////////////////////////
+	// https://mvnrepository.com/artifact/org.zalando/logbook-spring-boot-starter //
+	//                                Logbook                                     //
+	////////////////////////////////////////////////////////////////////////////////
+	implementation group: 'org.zalando', name: 'logbook-spring-boot-starter', version: '2.14.0'
+
+	////////////////////////////////////////////////////////////////////////////////
+	//  https://mvnrepository.com/artifact/commons-io/commons-io                  //
+	//                           Apache Commons IO                                //
+	////////////////////////////////////////////////////////////////////////////////
+	implementation group: 'commons-io', name: 'commons-io', version: '2.11.0'
+
+	////////////////////////////////////////////////////////////////////////////////
+	//  https://mvnrepository.com/artifact/io.github.cdimascio/dotenv-java        //
+	//                           DOTENV Library                                   //
+	////////////////////////////////////////////////////////////////////////////////
+	implementation group: 'io.github.cdimascio', name: 'dotenv-java', version: '2.2.3'
+
+	////////////////////////////////////////////////////////////////////////////////
+	//       https://mvnrepository.com/artifact/org.json/json                     //
+	//                           JSON Library                                     //
+	////////////////////////////////////////////////////////////////////////////////
+	implementation group: 'org.json', name: 'json', version: '20211205'
+
+	////////////////////////////////////////////////////////////////////////////////
+	//                           https://github.com/jwtk/jjwt                     //
+	//                           Jwt library import                               //
+	////////////////////////////////////////////////////////////////////////////////
+	implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
+	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.2', 'io.jsonwebtoken:jjwt-jackson:0.11.2'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-websocket'
+	implementation 'org.springframework.session:spring-session-core'
+	runtimeOnly 'mysql:mysql-connector-java'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+	testImplementation 'org.springframework.security:spring-security-test'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
