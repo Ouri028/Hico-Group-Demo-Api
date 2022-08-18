@@ -20,6 +20,15 @@ import java.util.Date;
 @DynamicUpdate
 @Table(name = "employees")
 public class Employees {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    private Long id;
+
+    private String firstName;
+
+    private String lastName;
+
     public enum Gender {
         MALE, FEMALE, UNSPECIFIED;
     }
@@ -31,15 +40,6 @@ public class Employees {
     public enum ProfileColor {
         RED, BLUE, GREEN, DEFAULT;
     }
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private Long id;
-
-    private String firstName;
-
-    private String lastName;
 
     @Enumerated(EnumType.STRING)
     private Salutation salutation;

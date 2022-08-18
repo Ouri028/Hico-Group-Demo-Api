@@ -26,8 +26,8 @@ public class UserController {
 
     @ResponseBody
     @PostMapping(value = "/users", produces = "application/json")
-    public Users addUser(@RequestBody String UserData) {
-        return userServices.addUser(new JSONObject(UserData), userRepository);
+    public Users addUser(@RequestBody String userData) {
+        return userServices.addUser(new JSONObject(userData), userRepository);
     }
 
     @ResponseBody
@@ -38,8 +38,8 @@ public class UserController {
 
     @ResponseBody
     @PatchMapping(value = "/user/{id}", produces = "application/json")
-    public Users updateUser(@RequestBody String UpdatedUserData, @PathVariable Long id) {
-        return userServices.updateUser(id, new JSONObject(UpdatedUserData), userRepository);
+    public Users updateUser(@RequestBody String updatedUserData, @PathVariable Long id) {
+        return userServices.updateUser(id, new JSONObject(updatedUserData), userRepository);
     }
 
     @ResponseBody
