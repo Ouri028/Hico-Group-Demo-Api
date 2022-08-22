@@ -19,31 +19,31 @@ public class UserController {
     private final UserServices userServices = new UserServices();
 
     @ResponseBody
-    @GetMapping(value = "/users", produces = "application/json")
+    @GetMapping(value = "/api/users", produces = "application/json")
     public Iterable<Users> getAllUsers() {
         return userRepository.findAll();
     }
 
     @ResponseBody
-    @PostMapping(value = "/users", produces = "application/json")
+    @PostMapping(value = "/api/users", produces = "application/json")
     public Users addUser(@RequestBody String userData) {
         return userServices.addUser(new JSONObject(userData), userRepository);
     }
 
     @ResponseBody
-    @GetMapping(value = "/user/{id}", produces = "application/json")
+    @GetMapping(value = "/api/user/{id}", produces = "application/json")
     public Users getUserById(@PathVariable Long id) {
         return userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
     }
 
     @ResponseBody
-    @PatchMapping(value = "/user/{id}", produces = "application/json")
+    @PatchMapping(value = "/api/user/{id}", produces = "application/json")
     public Users updateUser(@RequestBody String updatedUserData, @PathVariable Long id) {
         return userServices.updateUser(id, new JSONObject(updatedUserData), userRepository);
     }
 
     @ResponseBody
-    @PostMapping(value = "/user/{id}/password_reset", produces = "application/json")
+    @PostMapping(value = "/api/user/{id}/password_reset", produces = "application/json")
     public String updatePassword(@RequestBody String password, @PathVariable Long id) {
         userServices.updatePassword(id, new JSONObject(password), userRepository);
         return new JSONObject()
@@ -52,7 +52,7 @@ public class UserController {
     }
 
     @ResponseBody
-    @DeleteMapping(value = "/user/{id}", produces = "application/json")
+    @DeleteMapping(value = "/api/user/{id}", produces = "application/json")
     public void deleteUser(@PathVariable Long id) {
         userRepository.deleteById(id);
     }

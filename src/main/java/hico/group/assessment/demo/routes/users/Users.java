@@ -129,13 +129,13 @@ public class Users {
     }
 
     @JsonIgnore
-    public String getUserDetails() {
+    public JSONObject getUserDetails() {
         return new JSONObject()
                 .put("id", id)
                 .put("username", username)
                 .put("firstName", firstName)
                 .put("lastName", lastName)
                 .put("createdAt", createdAt)
-                .put("updatedAt", updatedAt).toString();
+                .put("updatedAt", updatedAt);
     }
 }

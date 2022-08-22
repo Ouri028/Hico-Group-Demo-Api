@@ -6,7 +6,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import hico.group.assessment.demo.exceptions.CustomJwtExceptions;
-import hico.group.assessment.demo.response.JwtToken;
 import hico.group.assessment.demo.routes.users.UserRepository;
 import hico.group.assessment.demo.routes.users.Users;
 import hico.group.assessment.demo.utils.Encryption;
@@ -25,7 +24,9 @@ public class AuthenticationServices {
                 Users db_user = userRepository.findByUsername(user.getString("username"));
                 if (encryption.decryptPassword(password, db_user.getPassword())) {
                     return new JSONObject()
-                            .put("token", jwt.generateJwtToken(db_user.getUserDetails())).toString();
+                            .put("token", jwt.generateJwtToken())
+                            .put("user", db_user.getUserDetails())
+                            .toString();
                 }
             } catch (Exception USER_NOT_FOUND) {
                 return new JSONObject()
@@ -41,7 +42,9 @@ public class AuthenticationServices {
     public String validateToken(String Token) throws JSONException, IOException {
         JSONObject token = new JSONObject(Token);
         if (jwt.verifyJwtToken(token.getString("token"), null))
-            return new JwtToken().decodedTokenData(jwt.decodeJwtToken(token.getString("token")));
+            return new JSONObject()
+                    .put("validated", true)
+                    .toString();
         return new CustomJwtExceptions().JwtTokenException("Invalid Token Error!");
     }
 }

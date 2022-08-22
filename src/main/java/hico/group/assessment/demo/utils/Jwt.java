@@ -14,8 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONObject;
 
 import hico.group.assessment.demo.exceptions.CustomJwtExceptions;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -29,12 +27,11 @@ public class Jwt {
     Key hmacKey = new SecretKeySpec(Base64.getDecoder().decode(secret),
             SignatureAlgorithm.HS256.getJcaName());
 
-    public String generateJwtToken(String UserData) {
+    public String generateJwtToken() {
         Date expiredAt = Date.from(Instant.now().plus(12, ChronoUnit.HOURS));
         return Jwts.builder()
                 .setIssuer("Demo")
                 .setSubject("Demo_User")
-                .claim("User", UserData)
                 .setId(UUID.randomUUID().toString())
                 .setIssuedAt(Date.from(Instant.now()))
                 .setExpiration(expiredAt)
@@ -42,8 +39,8 @@ public class Jwt {
                 .compact();
     }
 
-    public boolean verifyJwtToken(String JwtToken, HttpServletResponse response) throws IOException {
-        if (JwtToken == null) {
+    public boolean verifyJwtToken(String jwtToken, HttpServletResponse response) throws IOException {
+        if (jwtToken == null) {
             JSONObject VALIDATION_FAILED = new JSONObject()
                     .put("error", "VALIDATION_FAILED")
                     .put("message", "A token has not been supplied.");
@@ -54,10 +51,7 @@ public class Jwt {
             return false;
         }
         try {
-            Jwts.parserBuilder()
-                    .setSigningKey(hmacKey)
-                    .build()
-                    .parseClaimsJws(JwtToken);
+            Jwts.parserBuilder().setSigningKey(hmacKey).build().parseClaimsJws(jwtToken);
             return true;
         } catch (JwtException INVALID_TOKEN) {
             if (response != null) {
@@ -72,18 +66,16 @@ public class Jwt {
             }
             return false;
         }
-
     }
 
-    public String decodeJwtToken(String JwtToken) {
+    public boolean decodeJwtToken(String jwtToken) {
         try {
-            Jws<Claims> jwt = Jwts.parserBuilder()
-                    .setSigningKey(hmacKey)
-                    .build()
-                    .parseClaimsJws(JwtToken);
-            return jwt.getBody().get("User").toString();
+            Jwts.parserBuilder().setSigningKey(hmacKey).build().parseClaimsJws(jwtToken);
+            return true;
+
         } catch (JwtException INVALID_TOKEN) {
-            return customJwtExceptions.JwtTokenException(INVALID_TOKEN.getMessage());
+            customJwtExceptions.JwtTokenException(INVALID_TOKEN.getMessage());
+            return false;
         }
 
     }

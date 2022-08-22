@@ -18,13 +18,13 @@ public class AuthenticationController {
     private AuthenticationServices authenticationServices = new AuthenticationServices();
 
     @ResponseBody
-    @PostMapping(value = "/authenticate", produces = "application/json")
-    public String authenticateUser(@RequestBody String UserData) {
-        return authenticationServices.authenticate(UserData, userRepository);
+    @PostMapping(value = "/api/authenticate", produces = "application/json")
+    public String authenticateUser(@RequestBody String userData) {
+        return authenticationServices.authenticate(userData, userRepository);
     }
 
     @ResponseBody
-    @PostMapping(value = "/verifyToken", produces = "application/json")
+    @PostMapping(value = "/api/verifyToken", produces = "application/json")
     public String verifyToken(@RequestBody String Token) throws JSONException, IOException {
         return authenticationServices.validateToken(Token);
     }
