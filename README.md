@@ -39,7 +39,6 @@ DB_PORT -> MySQL port (default is 3306)
 DB_USERNAME -> MySQL database user (default is hico_demo_user)
 DB_PASSWORD -> MySQL password (default is password)
 DB_DATABASE -> MySQL database (default is hico_demo)
-FRESH_INITIALIZE -> Enable this if you want to create a fresh initialization of the database (default is True)
 
 ```
 
