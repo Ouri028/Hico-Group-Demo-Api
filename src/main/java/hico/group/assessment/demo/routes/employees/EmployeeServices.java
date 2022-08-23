@@ -16,7 +16,7 @@ public class EmployeeServices {
         employees.setGender(employeeData.getEnum(Gender.class, "gender"));
         employees.setSalutation(employeeData.getEnum(Salutation.class, "salutation"));
         employees.setProfileColor(employeeData.getEnum(ProfileColor.class, "profileColor"));
-        employees.setGrossSalary(employeeData.getInt("grossSalary"));
+        employees.setGrossSalary(employeeData.getDouble("grossSalary"));
 
         return employeeRepository.save(employees);
     }
@@ -29,7 +29,7 @@ public class EmployeeServices {
         employeeFoundById.setGender(updatedEmployeeData.getEnum(Gender.class, "gender"));
         employeeFoundById.setSalutation(updatedEmployeeData.getEnum(Salutation.class, "salutation"));
         employeeFoundById.setProfileColor(updatedEmployeeData.getEnum(ProfileColor.class, "profileColor"));
-        employeeFoundById.setGrossSalary(updatedEmployeeData.getInt("grossSalary"));
+        employeeFoundById.setGrossSalary(updatedEmployeeData.getDouble("grossSalary"));
 
         return employeeRepository.save(employeeFoundById);
     }

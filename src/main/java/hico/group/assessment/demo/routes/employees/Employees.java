@@ -49,7 +49,7 @@ public class Employees {
 
     private Integer employeeCode;
 
-    private Integer grossSalary;
+    private Double grossSalary;
 
     @Enumerated(EnumType.STRING)
     private ProfileColor profileColor;
@@ -151,14 +151,14 @@ public class Employees {
     /**
      * @return the grossSalary
      */
-    public Integer getGrossSalary() {
+    public double getGrossSalary() {
         return grossSalary;
     }
 
     /**
      * @param grossSalary the grossSalary to set
      */
-    public void setGrossSalary(Integer grossSalary) {
+    public void setGrossSalary(Double grossSalary) {
         this.grossSalary = grossSalary;
     }
 
