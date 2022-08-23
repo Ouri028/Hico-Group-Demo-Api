@@ -15,8 +15,12 @@ public class JwtMiddleware implements AsyncHandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws IOException {
-        String jwtToken = request.getHeader("x-access-token");
-        return jwt.verifyJwtToken(jwtToken, response);
+        if (request.getMethod().equals("OPTIONS")) {
+            return true;
+        } else {
+            String jwtToken = request.getHeader("x-access-token");
+            return jwt.verifyJwtToken(jwtToken, response);
+        }
     }
 
     @Override
