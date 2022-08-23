@@ -38,3 +38,6 @@ out/
 
 ### Env ###
 .env
+
+### vscode workspace
+demo.code-workspace.json
