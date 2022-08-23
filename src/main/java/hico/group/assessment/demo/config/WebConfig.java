@@ -16,7 +16,9 @@ public class WebConfig {
 
     @Bean
     public SecurityFilterChain httpSecurity(HttpSecurity http) throws Exception {
-        http.authorizeRequests().anyRequest().permitAll();
+        http.authorizeRequests()
+                .antMatchers("/**/*.{js,html,css}").permitAll()
+                .anyRequest().permitAll();
         return http.build();
     }
 
