@@ -25,7 +25,7 @@ public class MiddlewareInjector implements WebMvcConfigurer {
         registry.addInterceptor(new JwtMiddleware())
                 .addPathPatterns("/**")
                 .excludePathPatterns("/api/authenticate", "/api/verifyToken", "/static/**", "/login/**", "/api-docs/**",
-                        "/swagger-ui/**", "/index.html")
+                        "/swagger-ui/**", "/index.html", "/")
                 .pathMatcher(new AntPathMatcher());
     }
 }
